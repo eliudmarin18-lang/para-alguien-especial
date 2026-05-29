@@ -160,7 +160,6 @@
     <script>
         let intentos = 0;
         function moverBoton() {
-            // El botón se mueve aleatoriamente las primeras 4 veces para jugar un poco
             if (intentos < 4) {
                 const btn = document.getElementById('btn-amigos');
                 const x = Math.random() * 120 - 60; 
@@ -170,11 +169,13 @@
             }
         }
 
+        // Mostrar formulario
         function mostrarFormulario() {
             document.getElementById('pantalla-pregunta').classList.add('hidden');
             document.getElementById('pantalla-formulario').classList.remove('hidden');
         }
 
+        // Si dice que sí
         function aceptar() {
             document.getElementById('pantalla-pregunta').classList.add('hidden');
             document.getElementById('pantalla-exito').classList.remove('hidden');
