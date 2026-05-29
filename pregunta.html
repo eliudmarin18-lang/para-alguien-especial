@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para alguien especial ✨</title>
+    <style>
+        /* Fondo degradado estético de negro a rosa desvanecido */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #09090b 20%, #1e111a 50%, #4c1d3a 80%, #831843 100%);
+            color: #f8fafc;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 63, 94, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+        }
+
+        p {
+            color: #fda4af;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .btn-si {
+            background-color: #f43f5e;
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+        }
+
+        .btn-si:hover {
+            background-color: #e11d48;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background-color: #3f3f46;
+            color: #e4e4e7;
+            position: absolute;
+            right: 40px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #f43f5e;
+            border-radius: 10px;
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+        }
+
+        .btn-enviar {
+            background-color: #fda4af;
+            color: #4c1d3a;
+            width: 100%;
+        }
+
+        .btn-enviar:hover {
+            background-color: #f43f5e;
+            color: white;
+        }
+
+        .decoracion-corazon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: latido 1.2s infinite;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="pantalla-pregunta">
+        <div class="decoracion-corazon">🖤</div>
+        <h1>Tengo una pregunta para ti...</h1>
+        <p>¿Quieres ser algo más que mi amiga?</p>
+        
+        <div class="btn-container">
+            <button class="btn-si" onclick="aceptar()">¡Sí! ❤️</button>
+            <button class="btn-no" id="btn-amigos" onmouseover="moverBoton()" onclick="mostrarFormulario()">Seguir siendo amigos</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="pantalla-formulario">
+        <h1>Entiendo... 🌸</h1>
+        <p>Me gustaría saber, ¿por qué prefieres que sigamos siendo amigos? Tu respuesta me importa mucho:</p>
+        
+        <form action="https://formspree.io/f/mzdwwgnj" method="POST">
+            <textarea name="mensaje_de_ella" placeholder="Escribe aquí lo que sientas..." required></textarea>
+            <button type="submit" class="btn-enviar">Enviar respuesta ✨</button>
+        </form>
+    </div>
+
+    <div class="card hidden" id="pantalla-exito">
+        <div class="decoracion-corazon">💖</div>
+        <h1>¡Me haces muy feliz! 🥰</h1>
+        <p>Prometo cuidarte y hacer que cada momento valga la pena. ¡Hablemos por chat!</p>
+    </div>
+
+    <script>
+        let intentos = 0;
+        function moverBoton() {
+            // El botón se mueve aleatoriamente las primeras 4 veces para jugar un poco
+            if (intentos < 4) {
+                const btn = document.getElementById('btn-amigos');
+                const x = Math.random() * 120 - 60; 
+                const y = Math.random() * 80 - 40;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+                intentos++;
+            }
+        }
+
+        function mostrarFormulario() {
+            document.getElementById('pantalla-pregunta').classList.add('hidden');
+            document.getElementById('pantalla-formulario').classList.remove('hidden');
+        }
+
+        function aceptar() {
+            document.getElementById('pantalla-pregunta').classList.add('hidden');
+            document.getElementById('pantalla-exito').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
