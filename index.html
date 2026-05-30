@@ -5,35 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para alguien especial ✨</title>
     <style>
-        /* Fondo degradado estético de negro a rosa desvanecido */
+        /* Fondo degradado aesthetic adaptado para móviles */
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, #09090b 20%, #1e111a 50%, #4c1d3a 80%, #831843 100%);
             color: #f8fafc;
-            overflow: hidden;
+            box-sizing: border-box;
+            padding: 20px;
         }
 
         .card {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(244, 63, 94, 0.2);
-            padding: 40px 30px;
-            border-radius: 20px;
+            padding: 35px 24px;
+            border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(244, 63, 94, 0.1);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            transition: all 0.5s ease;
+            max-width: 420px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 10px;
             color: #fff;
             text-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
@@ -41,44 +42,57 @@
 
         p {
             color: #fda4af;
-            font-size: 1.05rem;
-            margin-bottom: 30px;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-            height: 50px;
-        }
-
-        button {
-            padding: 12px 28px;
             font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
+            margin-bottom: 25px;
+            line-height: 1.4;
         }
 
-        .btn-si {
+        /* Contenedor de botones distribuido para pantallas de celular */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+
+        /* El botón "SÍ" abarca más espacio por ser el principal */
+        .btn-principal {
+            grid-column: 1 / -1;
             background-color: #f43f5e;
             color: white;
             box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+
+        /* Botones secundarios en parejas o individuales */
+        button {
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent; /* Quita el cuadro feo al tocar en cel */
+        }
+
+        button:active {
+            transform: scale(0.98);
         }
 
         .btn-si:hover {
             background-color: #e11d48;
-            transform: scale(1.05);
         }
 
-        .btn-no {
-            background-color: #3f3f46;
+        .btn-opcion {
+            background-color: #27272a;
             color: #e4e4e7;
-            position: absolute;
-            right: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-opcion:hover {
+            background-color: #3f3f46;
         }
 
         .hidden {
@@ -87,16 +101,17 @@
 
         textarea {
             width: 100%;
-            height: 100px;
-            background: rgba(0, 0, 0, 0.4);
+            height: 110px;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid #f43f5e;
-            border-radius: 10px;
+            border-radius: 14px;
             color: white;
-            padding: 10px;
+            padding: 12px;
             box-sizing: border-box;
             resize: none;
             font-family: inherit;
             margin-bottom: 20px;
+            font-size: 1rem;
         }
 
         textarea:focus {
@@ -108,6 +123,7 @@
             background-color: #fda4af;
             color: #4c1d3a;
             width: 100%;
+            padding: 14px;
         }
 
         .btn-enviar:hover {
@@ -116,14 +132,14 @@
         }
 
         .decoracion-corazon {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 10px;
             animation: latido 1.2s infinite;
         }
 
         @keyframes latido {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.08); }
             100% { transform: scale(1); }
         }
     </style>
@@ -135,17 +151,22 @@
         <h1>Tengo una pregunta para ti...</h1>
         <p>¿Quieres ser algo más que mi amiga?</p>
         
-        <div class="btn-container">
-            <button class="btn-si" onclick="aceptar()">¡Sí! ❤️</button>
-            <button class="btn-no" id="btn-amigos" onmouseover="moverBoton()" onclick="mostrarFormulario()">Seguir siendo amigos</button>
+        <div class="btn-grid">
+            <button class="btn-principal btn-si" onclick="aceptar()">¡Sí! ❤️</button>
+            <button class="btn-opcion" onclick="mostrarFormulario('Tal vez... 🤔')">Tal vez... 🤔</button>
+            <button class="btn-opcion" onclick="mostrarFormulario('Quizás... 🕒')">Quizás... 🕒</button>
+            <button class="btn-opcion" onclick="mostrarFormulario('No sé, dímelo tú... 🙈')">No sé, dímelo tú... 🙈</button>
+            <button class="btn-opcion" onclick="mostrarFormulario('Seguir siendo amigos... 🌸')">Seguir siendo amigos 🌸</button>
         </div>
     </div>
 
     <div class="card hidden" id="pantalla-formulario">
-        <h1>Entiendo... 🌸</h1>
-        <p>Me gustaría saber, ¿por qué prefieres que sigamos siendo amigos? Tu respuesta me importa mucho:</p>
+        <h1 id="titulo-formulario">Entiendo... 🌸</h1>
+        <p id="subtitulo-formulario">Me gustaría saber qué pasa por tu mente. Tu respuesta me importa mucho:</p>
         
         <form action="https://formspree.io/f/mzdwwgnj" method="POST">
+            <input type="hidden" name="opcion_seleccionada" id="opcion-oculta">
+            
             <textarea name="mensaje_de_ella" placeholder="Escribe aquí lo que sientas..." required></textarea>
             <button type="submit" class="btn-enviar">Enviar respuesta ✨</button>
         </form>
@@ -154,30 +175,43 @@
     <div class="card hidden" id="pantalla-exito">
         <div class="decoracion-corazon">💖</div>
         <h1>¡Me haces muy feliz! 🥰</h1>
-        <p>Prometo cuidarte y hacer que cada momento valga la pena. ¡Hablemos por chat!</p>
+        <p>Prometo cuidarte y hacer que cada momento valga la pena. ¡Ya te envié un mensaje al chat!</p>
+        
+        <form id="form-si" action="https://formspree.io/f/mzdwwgnj" method="POST" class="hidden">
+            <input type="hidden" name="Respuesta" value="¡DIJO QUE SÍ! ❤️ Revisa tu chat enseguida.">
+        </form>
     </div>
 
     <script>
-        let intentos = 0;
-        function moverBoton() {
-            // El botón se mueve aleatoriamente las primeras 4 veces para jugar un poco
-            if (intentos < 4) {
-                const btn = document.getElementById('btn-amigos');
-                const x = Math.random() * 120 - 60; 
-                const y = Math.random() * 80 - 40;
-                btn.style.transform = `translate(${x}px, ${y}px)`;
-                intentos++;
+        // Si elige una opción intermedia o "No"
+        function mostrarFormulario(opcionTexto) {
+            document.getElementById('opcion-oculta').value = opcionTexto;
+            
+            // Personalizar el título según lo que toque
+            if (opcionTexto.includes('Tal vez') || opcionTexto.includes('Quizás')) {
+                document.getElementById('titulo-formulario').innerText = "¡Me dejas pensando! 👀";
+                document.getElementById('subtitulo-formulario').innerText = "Dime, ¿qué te haría dar el siguiente paso? Cuéntame:";
+            } else {
+                document.getElementById('titulo-formulario').innerText = "Entiendo... 🌸";
+                document.getElementById('subtitulo-formulario').innerText = "Tu respuesta me importa mucho. Cuéntame lo que sientas:";
             }
-        }
 
-        function mostrarFormulario() {
             document.getElementById('pantalla-pregunta').classList.add('hidden');
             document.getElementById('pantalla-formulario').classList.remove('hidden');
         }
 
+        // Si dice que SÍ (Manda correo silencioso y cambia de pantalla)
         function aceptar() {
             document.getElementById('pantalla-pregunta').classList.add('hidden');
             document.getElementById('pantalla-exito').classList.remove('hidden');
+            
+            // Envía la notificación de "SÍ" a Formspree de fondo
+            const formSi = document.getElementById('form-si');
+            fetch(formSi.action, {
+                method: 'POST',
+                body: new FormData(formSi),
+                headers: { 'Accept': 'application/json' }
+            });
         }
     </script>
 </body>
